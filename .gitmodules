@@ -1,0 +1,6 @@
+[submodule "src/widgets/discord-custom-status"]
+	path = src/widgets/discord-custom-status
+	url = git@github.com:EximiaStudios/discord-custom-status.git
+[submodule "src/widgets/status"]
+	path = src/widgets/status
+	url = git@github.com:EximiaStudios/discord-custom-status.git

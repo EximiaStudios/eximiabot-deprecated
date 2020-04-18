@@ -1,1 +1,1 @@
-module.exports = ({ type }) => type === 'text';
+module.exports = ({ type }) => type === "text";

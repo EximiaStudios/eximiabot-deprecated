@@ -1,6 +1,6 @@
 module.exports = {
-  prefixes: ['.'],
-  commandDelimiter: ',,',
-  commandLimit: 3,
-  owners: ['206161807491072000']
+    prefixes: ["ex."],
+    commandDelimiter: ",,",
+    commandLimit: 3,
+    owners: ["156670678165094400"]
 };

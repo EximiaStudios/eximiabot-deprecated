@@ -2,7 +2,8 @@ const {
     prefixes,
     commandDelimiter,
     commandLimit,
-    owners
+    owners,
+    mods
 } = require("../config");
 const { addCooldown, isInCooldownCache } = require("../caches/cooldownCache");
 const getCommand = require("../util/getCommand");
@@ -28,16 +29,18 @@ const startsWithPrefix = ({ message, content }) =>
 const parseContent = ({ message, content }) => {
     const args = content.replace(getPrefixRegExp(message), "").split(/ +/);
     const command = getCommand(message, args.shift().toLowerCase());
+
     return { message, command, args };
 };
 
 const isExecutable = ({ message, command, args }) =>
     command &&
-  (!command.ownersOnly || owners.includes(message.author.id)) &&
-  (!command.guildOnly || isText(message.channel)) &&
-  (!command.requireArgs || args.length) &&
-  !command.disabled &&
-  !isInCooldownCache(message.author, command);
+    (!command.ownersOnly || owners.includes(message.author.id)) &&
+    (!command.modsOnly || mods.includes(message.member.roles.highest.id)) &&
+    (!command.guildOnly || isText(message.channel)) &&
+    (!command.requireArgs || args.length) &&
+    !command.disabled &&
+    !isInCooldownCache(message.author, command);
 
 const createExecutable = ({ message, command, args }) => ({
     executable: async () => {
@@ -50,8 +53,8 @@ const createExecutable = ({ message, command, args }) => ({
 const deleteCommand = (message, payload) => {
     if (
         isText(message.channel) &&
-    hasPermission(message, "MANAGE_MESSAGES") &&
-    payload.some(i => i.deleteCommand)
+        hasPermission(message, "MANAGE_MESSAGES") &&
+        payload.some(i => i.deleteCommand)
     ) {
         message.delete();
     }

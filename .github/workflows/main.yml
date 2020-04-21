@@ -30,9 +30,24 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
         image-name: eximiabot # Provide only Docker image name, tag will be automatically set to latest
 
-    - name: Build and Publish to Docker
-      uses: elgohr/Publish-Docker-Github-Action@master
+    - name: Dockerhub login
+      env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      run: |
+          echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
+
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
       with:
-        name: eximiastudios/eximiabot
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+            version: latest
+    - name: Build and Publish to Docker
+      env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      run: |
+          docker buildx build \
+          --platform=linux/amd64,linux/arm/v7,linux/arm64 \
+          --output "type=image,push=true" \
+          --file ./Dockerfile . \
+          --tag eximiastudios/eximiabot:latest

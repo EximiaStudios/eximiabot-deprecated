@@ -1,5 +1,5 @@
 FROM alpine:latest
-RUN apk add --no-cache nodejs npm python make
+RUN apk add --no-cache nodejs npm python make alpine-sdk diffutils
 
 WORKDIR /app
 

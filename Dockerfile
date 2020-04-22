@@ -1,5 +1,5 @@
 FROM alpine:latest
-RUN apk add --no-cache nodejs npm sqlite-dev python
+RUN apk add --no-cache nodejs npm sqlite-dev python make g++
 
 WORKDIR /app
 

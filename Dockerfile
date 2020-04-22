@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN npm install --unsafe-perm --only=production
+RUN npm install --only=production
 
 ENTRYPOINT ["node"]
 CMD ["./src/index.js"]

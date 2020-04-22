@@ -36,7 +36,10 @@
   "dependencies": {
     "discord.js": "^12.2.0",
     "sequelize": "^5.21.6",
-    "sqlite3": "^4.1.1"
+  },
+  "optionalDependencies": {
+    "sqlite3": "^4.1.1",
+    "sqlite3-arm": "^4.0.2"
   },
   "devDependencies": {
     "eslint": "^6.8.0"

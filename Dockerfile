@@ -1,5 +1,5 @@
 FROM alpine:latest
-RUN apk add --no-cache nodejs npm sqlite-dev
+RUN apk add --no-cache nodejs npm sqlite-dev python
 
 WORKDIR /app
 

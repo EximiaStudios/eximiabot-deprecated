@@ -24,6 +24,14 @@ jobs:
       with:
         submodules: 'recursive'
 
+    - name: Cache node modules
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
     - name: Build and Publish to GitHub
       uses: VaultVulp/gp-docker-action@1.0.1
       with:
